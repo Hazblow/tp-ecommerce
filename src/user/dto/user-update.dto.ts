@@ -5,10 +5,6 @@ export class UserUpdateDto {
   lastname: string;
   @IsString()
   firstname: string;
-  @IsNumber()
-  age: number;
-  @IsString()
-  birthdayCity: string;
   @IsString()
   email: string;
 }

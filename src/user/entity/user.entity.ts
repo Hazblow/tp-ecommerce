@@ -8,19 +8,13 @@ export class User {
   id: number;
 
   @Column({ type: 'varchar', nullable: true })
-  firstname: string;
+  firstName: string;
 
   @Column({ type: 'varchar', nullable: true })
-  lastname: string;
+  lastName: string;
 
   @Column({ type: 'varchar' })
   password: string;
-
-  @Column({ type: 'int' , nullable: true})
-  age: number;
-
-  @Column({ type: 'varchar' , nullable: true})
-  birthdayCity: string;
 
   @Column({ type: 'varchar', unique: true, nullable: true })
   email: string;
@@ -30,11 +24,9 @@ export class User {
 
   constructor(data: UserCreateDto) {
     if (data) {
-      this.firstname = data.firstname;
-      this.lastname = data.lastname;
+      this.firstName = data.firstName;
+      this.lastName = data.lastName;
       this.password = null;
-      this.age = data.age;
-      this.birthdayCity = data.birthdayCity;
       this.email = data.email;
     }
   }

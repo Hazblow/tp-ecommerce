@@ -8,7 +8,6 @@ import { UserCreateDto } from '../dto/user-create.dto';
 import { GetAllUsersService } from '../use-case/get-all-users.service';
 import { GetUserByIdService } from '../use-case/get-user-by-id.service';
 import { UpdateUserService } from '../use-case/update-user.service';
-import { GetUsersByBirthdayCityService } from '../use-case/get-users-by-birthday-city.service';
 import { UserUpdateDto } from '../dto/user-update.dto';
 import { UserPasswordUpdateDto } from '../dto/user-password-update.dto';
 import { UpdateUserPasswordService } from '../use-case/update-user-password.service';
@@ -22,7 +21,6 @@ export class UserController {
     private readonly getAllUsersService: GetAllUsersService,
     private readonly getUserByIdService: GetUserByIdService,
     private readonly updateUserService: UpdateUserService,
-    private readonly getUsersByBirthdayCityService: GetUsersByBirthdayCityService,
     private readonly updateUserPasswordService: UpdateUserPasswordService,
     private readonly getUserByEmailService: GetUserByEmailService,
   ) {}
@@ -40,11 +38,6 @@ export class UserController {
   @Get(':id')
   getUserById(@Param('id', ParseIntPipe) id: number) {
     return this.getUserByIdService.getOneUserById(id);
-  }
-
-  @Get('by-birthday-city/:city')
-  getUsersByBirthdayCity(@Param('city') city: string) {
-    return this.getUsersByBirthdayCityService.getUsersByBirthdayCity(city);
   }
 
   @Get('by-email/:email')
