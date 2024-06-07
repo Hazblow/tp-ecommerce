@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderController } from './controller/order.controller';
-import { CreateOrderService } from './use-case/create-order.service';
+import { AddToCartService } from './use-case/add-to-cart.service';
 import { Order } from './entity/order.entity';
 import { PayOrderService } from './use-case/pay-order.service';
 import { UpdateInvoiceAddressOrderService } from './use-case/update-invoice-address-order.service';
@@ -16,12 +16,12 @@ import { Product } from '../product/entity/product.entity';
   imports: [TypeOrmModule.forFeature([Order,OrderItem,User,Product])],
   controllers: [OrderController],
   providers: [
-    CreateOrderService,
+    AddToCartService,
     PayOrderService,
     UpdateShippingOrderService,
     UpdateInvoiceAddressOrderService,
     GetUserByIdService,
-    GetProductByIdService
+    GetProductByIdService,
   ],
 })
 export class OrderModule {

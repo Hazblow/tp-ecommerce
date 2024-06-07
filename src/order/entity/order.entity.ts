@@ -4,6 +4,9 @@ import { OrderUpdateShippingDto } from '../dto/order-update-shipping.dto';
 import { OrderUpdateInvoiceAddressDto } from '../dto/order-update-invoice-address.dto';
 import { OrderItem } from './order-item.entity';
 import { User } from '../../user/entity/user.entity';
+import { GetUserByIdService } from '../../user/use-case/get-user-by-id.service';
+import { GetProductByIdService } from '../../product/use-case/get-product-by-id.service';
+import { Product } from '../../product/entity/product.entity';
 
 @Entity()
 export class Order {
@@ -90,5 +93,23 @@ export class Order {
       this.invoiceAddress = this.shippingAddress;
       this.invoiceAddressSetAt = new Date();
     }
+  }
+
+  calculateTotal() {
+    this.total = 0;
+    for (const item of this.items) {
+      this.total += item.price * item.quantity;
+    }
+  }
+
+  async addOrderItemToCart(data: OrderCreateDto, product: Product) {
+      let orderItem = this.items.find(item => item.product.id === data.productId);
+      if (orderItem) {
+        orderItem.quantity = data.quantity;
+      } else {
+        const orderItem = new OrderItem(data, product);
+        this.items.push(orderItem);
+      }
+      this.calculateTotal();
   }
 }

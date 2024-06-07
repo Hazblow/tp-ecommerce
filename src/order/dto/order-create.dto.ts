@@ -1,7 +1,11 @@
-import { ArrayMaxSize, IsObject, IsString, MinLength } from 'class-validator';
-import { OrderItemCreateDto } from './order-item-create.dto';
+import { ArrayMaxSize, IsNumber, IsObject, IsPositive, IsString, MinLength } from 'class-validator';
 
 export class OrderCreateDto {
-  @IsObject({ each: true })
-  items: OrderItemCreateDto[];
+  @IsNumber()
+  @IsPositive()
+  productId: number;
+
+  @IsNumber()
+  @IsPositive()
+  quantity: number;
 }

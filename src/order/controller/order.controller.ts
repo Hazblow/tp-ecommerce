@@ -8,7 +8,7 @@ import {
   Post,
   Put, UseGuards,
 } from '@nestjs/common';
-import { CreateOrderService } from '../use-case/create-order.service';
+import { AddToCartService } from '../use-case/add-to-cart.service';
 import { OrderCreateDto } from '../dto/order-create.dto';
 import { PayOrderService } from '../use-case/pay-order.service';
 import { OrderUpdateShippingDto } from '../dto/order-update-shipping.dto';
@@ -21,7 +21,7 @@ import { CurrentUser } from '../../auth/user.decorator';
 @Controller('orders')
 export class OrderController {
   constructor(
-    private readonly createOrderService: CreateOrderService,
+    private readonly addToCartService: AddToCartService,
     private readonly payOrderService: PayOrderService,
     private readonly updateShippingOrderService: UpdateShippingOrderService,
     private readonly updateInvoiceAddressOrderService: UpdateInvoiceAddressOrderService,
@@ -30,8 +30,8 @@ export class OrderController {
 
   @Post()
   @UseGuards(AuthGuard)
-  createOrder(@Body() data: OrderCreateDto,  @CurrentUser() currentUser: any) {
-    return this.createOrderService.createOrder(data, currentUser);
+  addToCart(@Body() data: OrderCreateDto,  @CurrentUser() currentUserId: number) {
+    return this.addToCartService.addToCart(data, currentUserId);
   }
 
   @Put(':id/pay')
